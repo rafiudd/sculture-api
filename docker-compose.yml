@@ -4,7 +4,7 @@ services:
         image: 'mongo'
         container_name: 'mongo-container'
         environment:
-            - MONGO_INITDB_DATABASE=quizquh
+            - MONGO_INITDB_DATABASE=sculture
             - MONGO_INITDB_ROOT_USERNAME=rafiudd
             - MONGO_INITDB_ROOT_PASSWORD=123123123
         volumes:
