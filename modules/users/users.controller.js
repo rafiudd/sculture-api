@@ -4,12 +4,14 @@ const config = require('config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../../helpers/db');
+const { ERROR: httpError } = require('../../helpers/httpError');
+const response = require('../../helpers/wrapper');
+
 const User = db.User;
 
 // routes
 router.post('/login', authenticate);
 router.post('/register', create);
-
 
 module.exports = router;
 
@@ -21,38 +23,16 @@ async function create(req,res) {
         phone : req.body.phone,
         password : bcrypt.hashSync(req.body.password, 10)
     }
-
     let checkEmail = await User.findOne({ "email" : model.email });
-    let checkUsername = await User.findOne({ "username" : model.username });
 
     if (checkEmail) {
-        return res.status(409).json(
-            { 
-                "code" : 409, 
-                "message" : "Email is already taken"
-            }
-        )
-    }
-
-    if(checkUsername) {
-        return res.status(409).json(
-            { 
-                "code" : 409, message : "Username is already taken"
-            }
-        )
+        return response.wrapper_error(res, httpError.INTERNAL_ERROR, 'Email is already taken')
     }
 
     const user = new User(model)
-   
     let query = await user.save();
-    let result = res.json(
-        {
-            "message" : "Success Register User" , 
-            "code" : 201, 
-            "data" : query
-        }
-    )
-    return result
+
+    return response.wrapper_success(res, 200, 'Succes Register User', query )
 }
 
 async function authenticate(req, res) {
@@ -68,17 +48,9 @@ async function authenticate(req, res) {
 
     if(checkEmail && bcrypt.compareSync(model.password, checkEmail.password)) {
         const token = jwt.sign({ sub: checkEmail.id }, config.secret);
-
-        return res.status(200).json(
-            { 
-                code : 200, 
-                message : "Succes Login", 
-                data: checkEmail, 
-                token: token
-            }
-        )        
+        return response.wrapper_success(res, 200, 'Succes Register User', checkEmail,token )
     } else {
-        return res.status(403).json({ code : 403, message : "Password Incorrect" })        
+        return response.wrapper_error(res, httpError.INTERNAL_ERROR, 'Password Incorrect')
     }
 }
 

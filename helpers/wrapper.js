@@ -1,10 +1,11 @@
 const response =  {
-    wrapper_success : (res, code, message, data) => {
+    wrapper_success : (res, code, message, data, token) => {
       let respon = {
         'code': code,
         'success': 'true',
         'message': message,
-        'data': data
+        'data': data,
+        'token': token
       }
       return res.send(respon);
     },
