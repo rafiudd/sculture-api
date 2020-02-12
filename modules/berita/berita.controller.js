@@ -3,16 +3,10 @@ const router = express.Router();
 const db = require('../../helpers/db');
 const { ERROR: httpError } = require('../../helpers/httpError');
 const response = require('../../helpers/wrapper');
-const files  = require('../../helpers/files');
-const fs = require('fs');
 
 const Berita = db.Berita;
+
 // routes
-
-
-// app.use(bodyParser.json()); // for parsing application/json
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 router.post('/post', create);
 router.get('/all', getAll);
 router.get('/', getById);
