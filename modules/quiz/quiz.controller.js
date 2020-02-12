@@ -68,7 +68,7 @@ async function _delete(req, res) {
         let query = await Quiz.remove();
         let result = res.json(
             {
-                "message" : "Success Remove Haji" , 
+                "message" : "Success Remove Quiz" , 
                 "code" : 200, 
                 "data" : query
             }
@@ -78,7 +78,7 @@ async function _delete(req, res) {
         let query = await ResultQuiz.remove();
         let result = res.json(
             {
-                "message" : "Success Remove Umrah" , 
+                "message" : "Success Remove Result" , 
                 "code" : 200, 
                 "data" : query
             }
@@ -137,6 +137,7 @@ async function checkAnswer(req,res) {
   
       
     let resultAnswer = {
+        "quizId" : model._id,
         "userId" : userId,
         "fullname" : query.fullname,
         "email" : query.email,
@@ -164,7 +165,7 @@ async function getResultQuiz(req, res, next) {
     let query = await ResultQuiz.find();
     let result = res.json(
         {
-            "message" : "Success Get All Soal" , 
+            "message" : "Success Get All Result" , 
             "code" : 200, 
             "data" : query 
         }
