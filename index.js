@@ -24,8 +24,8 @@ app.get('/', function (req, res) {
 });
 app.use('/api/users', require('./modules/users/users.controller'));
 app.use('/api/berita', require('./modules/berita/berita.controller'));
-app.use('/api/materi', require('./modules/berita/berita.controller'));
-app.use('/api/tutorial', require('./modules/berita/tutorial.controller'));
+app.use('/api/materi', require('./modules/materi/materi.controller'));
+app.use('/api/tutorial', require('./modules/tutorial/tutorial.controller'));
 app.use('/api/quiz', require('./modules/quiz/quiz.controller'));
 
 // global error handler
