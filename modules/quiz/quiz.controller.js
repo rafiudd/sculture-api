@@ -139,7 +139,6 @@ async function checkAnswer(req,res) {
     let resultAnswer = {
         "quizId" : model._id,
         "userId" : userId,
-        "fullname" : query.fullname,
         "email" : query.email,
         "userAnswer" : payloadAnswer,
         "trueAnswer" : isTrue,
