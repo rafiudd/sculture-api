@@ -2,3 +2,5 @@ mongo-volume/
 node_modules/
 
 package-lock.json
+login.sh
+sculture-api.pem
